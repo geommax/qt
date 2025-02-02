@@ -13,14 +13,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(Qt5 REQUIRED COMPONENTS Core Sql)
+
 
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        tableDataManager.h
-        tableDataManager.cpp
+        sources/sql_data_manager.cpp
+        headers/sql_data_manager.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -47,6 +49,8 @@ else()
 endif()
 
 target_link_libraries(setup_test PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(setup_test PRIVATE Qt5::Sql)
+
 
 set_target_properties(setup_test PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
@@ -59,3 +63,4 @@ set_target_properties(setup_test PROPERTIES
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(setup_test)
 endif()
+

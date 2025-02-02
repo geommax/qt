@@ -12,3 +12,17 @@
 
 5. target_link_libraries(setup_test PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 //နောက်ထပ် thirdparty lib တွေနဲ့ ချိတ်လိုပါက ဒီမှာလာရောက်ချိတ်ဆက်ပါ။
+
+
+```
+sudo apt install qtcreator libqt5sql5-mysql
+```
+
+
+```
+mysqldump -u root -p mydatabase > /path/to/backup/mydatabase_backup.sql
+```
+```
+mysql -u root -p mydatabase < /path/to/backup/mydatabase_backup.sql
+```
+
