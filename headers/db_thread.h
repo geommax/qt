@@ -1,7 +1,7 @@
 #ifndef DATABASE_H
 #define DATABASE_H
 
-#include <QThreads>
+// #include <QThreads>
 
 #include <QDebug>
 struct DbData
@@ -21,8 +21,8 @@ public:
 signals:
 
 
-slots:
-    void onGetSalePOSData();
+// slots:
+//     void onGetSalePOSData();
     
 
 private slots:
@@ -32,4 +32,4 @@ private:
 
 };
 #endif 
-#endif // DATABASE_H
+

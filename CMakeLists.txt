@@ -19,8 +19,8 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        headers/db_thread.h
-        sources/db_thread.cpp
+        tableDataManager.h
+        tableDataManager.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

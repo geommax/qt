@@ -74,9 +74,12 @@ void MainWindow::salePosBtn_clicked()
 {
     qDebug()<< "about to go sale panel";
     hideLeftPanel(false);
-
+    
+    addItemBtnPtr_->show();
+    listWidgetPtr_->show();
     // show table
-    emit getTableData();
+
+    emit getTableData(); // emit to other class that can process with threadings async. 
 
     // click 
 
