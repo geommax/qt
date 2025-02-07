@@ -71,4 +71,5 @@ Once the build is complete, you can verify that the installation contains WebAss
 
 ---
 
-Let me know if you need further help with this process!
+[Web Assembly ](https://doc.qt.io/qt-5/wasm.html)
+[Emscripten  ](https://emscripten.org/docs/introducing_emscripten/index.html)
