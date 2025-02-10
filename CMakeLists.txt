@@ -15,6 +15,11 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package(Qt5 REQUIRED COMPONENTS Core Sql)
 
+if (CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+    set(WASM ON)
+endif()
+
 
 set(PROJECT_SOURCES
         main.cpp
@@ -48,6 +53,7 @@ else()
     endif()
 endif()
 
+
 target_link_libraries(setup_test PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 target_link_libraries(setup_test PRIVATE Qt5::Sql)
 
@@ -59,6 +65,13 @@ set_target_properties(setup_test PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
+# WebAssembly-specific settings
+if (WASM)
+    set_target_properties(MyQtWebApp PROPERTIES
+        LINK_FLAGS "-sUSE_WEBGL2=1 -sUSE_SDL=2 -sASYNCIFY"
+    )
+endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(setup_test)

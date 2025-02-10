@@ -1,14 +1,12 @@
-## QT
+## QT 5.15.3 
+### Qt Creator 6.0.2 based on Qt 5.15.3
+
+References: 
 
 https://download.qt.io/archive/qt/5.15/
+https://download.qt.io/archive/
 https://emscripten.org/docs/getting_started/Tutorial.html
-
 https://doc.qt.io/qt-5/wasm.html
-
-https://doc.qt.io/qt-5/wasm.html
-
-
-ဒီနှစ်ခုသွင်းရမယ်ဗျာ။
 
 6. Web Engine ပေါ်မှာ RUN လို့ရအောင် Compile လုပ်ပေးမယ့်ကောင်က တော့ emsdk ဘဲဖြစ်ပါတယ်။ 
 
@@ -76,3 +74,26 @@ python -m http.server
 
 
 And visit http://localhost:8000/. See the result images/6147644483748085945.jpg.
+
+```bash
+rm -rf *.wasm *.html *.wasm *.data
+```
+
+```bash
+emcc hello_files.c  -o hello_files.html --preload-file hello_world_file.txt
+```
+
+
+And visit http://localhost:8000/. See the result images/6147644483748085962
+
+
+```bash
+python -m http.server --directory build
+```
+
+# CMAKE ဖြစ် emsdk အသုံးပြုပြီး build ခြင်း ( လာမည် ကမ်းမင်းဆွန်း.. )
+```bash
+source /path/to/emsdk/emsdk_env.sh
+emcmake cmake -B build -DCMAKE_PREFIX_PATH=~/Qt/5.15/wasm_32
+cmake --build build
+```

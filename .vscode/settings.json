@@ -5,6 +5,7 @@
         "optional": "cpp",
         "system_error": "cpp",
         "typeindex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "stdio.h": "c"
     }
 }
