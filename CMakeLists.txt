@@ -35,17 +35,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET setup_test APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
         add_library(setup_test SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(setup_test
             ${PROJECT_SOURCES}
@@ -70,7 +64,7 @@ set_target_properties(setup_test PROPERTIES
 if (WASM)
     set_target_properties(MyQtWebApp PROPERTIES
         LINK_FLAGS "-sUSE_WEBGL2=1 -sUSE_SDL=2 -sASYNCIFY"
-    )
+    )   
 endif()
 
 if(QT_VERSION_MAJOR EQUAL 6)

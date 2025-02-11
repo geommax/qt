@@ -97,3 +97,27 @@ source /path/to/emsdk/emsdk_env.sh
 emcmake cmake -B build -DCMAKE_PREFIX_PATH=~/Qt/5.15/wasm_32
 cmake --build build
 ```
+### WebAssembly-specific settings for CMakeLists.txt
+```
+if (CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+    set(CMAKE_EXECUTABLE_SUFFIX ".html")
+    set(WASM ON)
+endif()
+```
+
+```
+if (WASM)
+    set_target_properties(MyQtWebApp PROPERTIES
+        LINK_FLAGS "-sUSE_WEBGL2=1 -sUSE_SDL=2 -sASYNCIFY"
+    )   
+endif()
+```
+```bash
+cmake -DCMAKE_TOOLCHAIN_FILE=/path/to/emsdk/emscripten/cmake/Modules/Platform/Emscripten.cmake \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DQT_BUILD_EXAMPLES=OFF \
+      -DQT_BUILD_TESTS=OFF \
+      -DQT_BUILD_TOOLS=OFF \
+      -DCMAKE_INSTALL_PREFIX=/path/to/qt/install/wasm_32 \
+      ../ # Path to your Qt source directory
+```
