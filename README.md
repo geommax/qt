@@ -23,7 +23,7 @@ em++ --version
 ```
 emcc (Emscripten gcc/clang-like replacement) 1.39.8 (commit 539e4044b78c3f9ef9c0539b673e48a59ed54803)
 
-7. Generate hello_world_emscripten_sdk.c to js file
+7. Generate hello_world_emscripten_sdk.c to js, wasm file
 
 ```bash
 emcc hello_world_emscripten_sdk.c 
@@ -90,6 +90,14 @@ And visit http://localhost:8000/. See the result images/6147644483748085962
 ```bash
 python -m http.server --directory build
 ```
+
+### Build From QT5 Source To Get web_wasm2
+```bash
+cd qt5_src
+./init-repository --module-subset=default
+```
+
+---
 
 # CMAKE ဖြစ် emsdk အသုံးပြုပြီး build ခြင်း ( လာမည် ကမ်းမင်းဆွန်း.. )
 ```bash
