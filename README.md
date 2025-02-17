@@ -91,7 +91,22 @@ And visit http://localhost:8000/. See the result images/6147644483748085962
 python -m http.server --directory build
 ```
 
-### Build From QT5 Source To Get web_wasm2
+
+### OPTION 01 Install QT-WebAssembly from online installer 
+
+availible mirrorlists
+
+https://download.qt.io/online/qtsdkrepository/windows_x86/root/qt/Updates.xml.mirrorlist
+
+```sh
+./qt-online-install.run --mirror 
+https://mirror.ossplanet.net/qtproject/online/qtsdkrepository/windows_x86/root/qt/Updates.xml 
+```
+
+
+
+
+### OPTION 02 Build From QT5 Source To Get web_wasm2
 ```bash
 cd qt5_src
 ./init-repository --module-subset=default
@@ -129,3 +144,4 @@ cmake -DCMAKE_TOOLCHAIN_FILE=/path/to/emsdk/emscripten/cmake/Modules/Platform/Em
       -DCMAKE_INSTALL_PREFIX=/path/to/qt/install/wasm_32 \
       ../ # Path to your Qt source directory
 ```
+
