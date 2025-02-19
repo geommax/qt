@@ -118,6 +118,10 @@ http://www.nic.funet.fi/pub/mirrors/download.qt-project.org
 
 > cd C:\path\to\your\qt_project
 
+> qmake ..
+
+> mingw32-make.exe
+
 > emcmake cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:\Qt\6.8.2\wasm_singlethread
 
 > emcmake cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=C:\Qt\6.8.2\wasm_singlethread
