@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "fstream": "cpp",
+        "optional": "cpp",
+        "system_error": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp",
+        "stdio.h": "c"
+    }
+}

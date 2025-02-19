@@ -1,0 +1,296 @@
+---
+resources:
+  - name: qt-webassembly-docker
+    type: git
+    source:
+      uri: https://github.com/Zebreus/qt-webassembly-docker.git
+      branch: master
+  - name: qt5-12
+    type: git
+    source:
+      uri: https://code.qt.io/qt/qt5.git
+      branch: 5.12
+  - name: qt5-13
+    type: git
+    source:
+      uri: https://code.qt.io/qt/qt5.git
+      branch: 5.13
+  - name: qt5-14
+    type: git
+    source:
+      uri: https://code.qt.io/qt/qt5.git
+      branch: 5.14
+  - name: qt5-15
+    type: git
+    source:
+      uri: https://code.qt.io/qt/qt5.git
+      branch: 5.15
+  - name: qt-webassembly-latest
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: latest
+  - name: qt-webassembly-qt5.12
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.12
+  - name: qt-webassembly-qt5.13
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.13
+  - name: qt-webassembly-qt5.14
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.14
+  - name: qt-webassembly-qt5.15
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.15
+  - name: qt-webassembly-qt5.12-em1.38.16
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.12-em1.38.16
+  - name: qt-webassembly-qt5.13-em1.38.27
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.13-em1.38.27
+  - name: qt-webassembly-qt5.13-em1.38.30-threads
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.13-em1.38.30-multithreading
+  - name: qt-webassembly-qt5.14-em1.38.27
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.14-em1.38.27
+  - name: qt-webassembly-qt5.14-em1.38.30-threads
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.14-em1.38.30-multithreading
+  - name: qt-webassembly-qt5.15-em1.39.8
+    type: registry-image
+    source:
+      repository: ((registry_username))/qt-webassembly
+      username: ((registry_username))
+      password: ((registry_password))
+      tag: qt5.15-em1.39.8
+  - name: emscripten-1-38-16
+    type: registry-image
+    source:
+      repository: trzeci/emscripten
+      tag: sdk-tag-1.38.16-64bit
+  - name: emscripten-1-38-27
+    type: registry-image
+    source:
+      repository: trzeci/emscripten
+      tag: sdk-tag-1.38.27-64bit
+  - name: emscripten-1-38-30
+    type: registry-image
+    source:
+      repository: trzeci/emscripten
+      tag: sdk-tag-1.38.30-64bit
+  - name: emscripten-1-39-8
+    type: registry-image
+    source:
+      repository: emscripten/emsdk
+      tag: 1.39.8-upstream
+  - name: oci-build-task
+    type: registry-image
+    source:
+      repository: vito/oci-build-task
+
+jobs:
+  - name: build-qt5.12-em1.38.16
+    public: true
+    serial_groups: [build-qt]
+    plan:
+      - get: qt-webassembly-docker
+      - get:  emscripten
+        resource: emscripten-1-38-16
+        params:
+          format: oci
+        trigger: true
+      - get: qt
+        resource: qt5-12
+        trigger: true
+      - get: oci-build-task
+      - task: build-container
+        file: qt-webassembly-docker/task-build-container.yml
+        privileged: true
+        image: oci-build-task
+        params:
+          EMSCRIPTEN_BASE: trzeci/emscripten
+      - put: qt-webassembly-qt5.12-em1.38.16
+        params: {image: image/image.tar}
+      - put: qt-webassembly-qt5.12
+        params: {image: image/image.tar}
+  - name: build-qt5.13-em1.38.27
+    public: true
+    serial_groups: [build-qt]
+    plan:
+      - get: qt-webassembly-docker
+      - get:  emscripten
+        resource: emscripten-1-38-27
+        params:
+          format: oci
+        trigger: true
+      - get: qt
+        resource: qt5-13
+        trigger: true
+      - get: oci-build-task
+      - task: build-container
+        file: qt-webassembly-docker/task-build-container.yml
+        privileged: true
+        image: oci-build-task
+        params:
+          EMSCRIPTEN_BASE: trzeci/emscripten
+      - put: qt-webassembly-qt5.13-em1.38.27
+        params: {image: image/image.tar}
+      - put: qt-webassembly-qt5.13
+        params: {image: image/image.tar}
+  - name: build-qt5.13-em1.38.30-threads
+    public: true
+    serial_groups: [build-qt]
+    plan:
+      - get: qt-webassembly-docker
+      - get:  emscripten
+        resource: emscripten-1-38-30
+        params:
+          format: oci
+        trigger: true
+      - get: qt
+        resource: qt5-13
+        trigger: true
+      - get: oci-build-task
+      - task: build-container
+        file: qt-webassembly-docker/task-build-container.yml
+        privileged: true
+        image: oci-build-task
+        params:
+          EMSCRIPTEN_BASE: trzeci/emscripten
+          BUILD_ARG_QT_CONFIGURE_OPTIONS: -feature-thread
+      - put: qt-webassembly-qt5.13-em1.38.30-threads
+        params: {image: image/image.tar}
+  - name: build-qt5.14-em1.38.27
+    public: true
+    serial_groups: [build-qt]
+    plan:
+      - get: qt-webassembly-docker
+      - get:  emscripten
+        resource: emscripten-1-38-27
+        params:
+          format: oci
+        trigger: true
+      - get: qt
+        resource: qt5-14
+        trigger: true
+      - get: oci-build-task
+      - task: build-container
+        file: qt-webassembly-docker/task-build-container.yml
+        privileged: true
+        image: oci-build-task
+        params:
+          EMSCRIPTEN_BASE: trzeci/emscripten
+      - put: qt-webassembly-qt5.14-em1.38.27
+        params: {image: image/image.tar}
+      - put: qt-webassembly-qt5.14
+        params: {image: image/image.tar}
+  - name: build-qt5.14-em1.38.30-threads
+    public: true
+    serial_groups: [build-qt]
+    plan:
+      - get: qt-webassembly-docker
+      - get:  emscripten
+        resource: emscripten-1-38-30
+        params:
+          format: oci
+        trigger: true
+      - get: qt
+        resource: qt5-14
+        trigger: true
+      - get: oci-build-task
+      - task: build-container
+        file: qt-webassembly-docker/task-build-container.yml
+        privileged: true
+        image: oci-build-task
+        params:
+          EMSCRIPTEN_BASE: trzeci/emscripten
+          BUILD_ARG_QT_CONFIGURE_OPTIONS: -feature-thread
+      - put: qt-webassembly-qt5.14-em1.38.30-threads
+        params: {image: image/image.tar}
+  - name: build-qt5.15-em1.39.8
+    public: true
+    serial_groups: [build-qt]
+    plan:
+      - get: qt-webassembly-docker
+      - get:  emscripten
+        resource: emscripten-1-39-8
+        params:
+          format: oci
+        trigger: true
+      - get: qt
+        resource: qt5-15
+        trigger: true
+      - get: oci-build-task
+      - task: build-container
+        file: qt-webassembly-docker/task-build-container.yml
+        privileged: true
+        image: oci-build-task
+      - put: qt-webassembly-qt5.15-em1.39.8
+        params: {image: image/image.tar}
+      - put: qt-webassembly-qt5.15
+        params: {image: image/image.tar}
+      - put: qt-webassembly-latest
+        params: {image: image/image.tar}
+
+groups:
+- name: all
+  jobs:
+  - build-qt5.12-em1.38.16
+  - build-qt5.13-em1.38.27
+  - build-qt5.13-em1.38.30-threads
+  - build-qt5.14-em1.38.27
+  - build-qt5.14-em1.38.30-threads
+  - build-qt5.15-em1.39.8
+- name: qt5-12
+  jobs:
+  - build-qt5.12-em1.38.16
+- name: qt5-13
+  jobs:
+  - build-qt5.13-em1.38.27
+  - build-qt5.13-em1.38.30-threads
+- name: qt5-14
+  jobs:
+  - build-qt5.14-em1.38.27
+  - build-qt5.14-em1.38.30-threads
+- name: qt5-15
+  jobs:
+  - build-qt5.15-em1.39.8
